@@ -1,19 +1,29 @@
-<div class="container">
-   <div class="row">
+<div class="container marginTop">
+   <div class="row ">
     <div class="col-sm"></div>
         <div class="col-sm">
-            <form>
+            <form (ngSubmit)="createNewProduct(f)" #f="ngForm">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Name Product</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-               
+                  <label for="txtName" class="form-label ">Name Product</label>
+                  <br>
+                  <span *ngIf="f.submitted && f.form.controls['txtName'].errors" class="text-danger">The name is required</span>
+                  <input required type="text" [(ngModel)]="product.name" name="txtName" class="form-control" id="txtName" aria-describedby="emailHelp">
                 </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Type product</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1">
+                <div class="input-group mb-3">
+                  <span *ngIf="f.submitted && f.form.controls['inputType'].errors" class="text-danger">The type is required</span>
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Type product</label>
+                  </div>
+                  <select required [(ngModel)]="product.type" class="custom-select" name="inputType" id="inputType">
+                    <option value="Tecnology">Tecnology</option>
+                    <option value="Food">Food</option>
+                    <option value="Drink">Drink</option>
+                    <option value="Clothes">Clothes</option>
+                    <option value="Shoes">Shoes</option>
+                  </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Create a new Product</button>
-              </form>
+            </form>
         </div>
         <div class="col-sm"></div>
    </div>

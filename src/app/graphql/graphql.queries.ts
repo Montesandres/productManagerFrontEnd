@@ -10,6 +10,16 @@ query Products {
 }
 `
 
+const CREATEPRODUCT = gql`
+  mutation CreateProduct($createProductInput: CreateProductInput!) {
+    createProduct(createProductInput: $createProductInput) {
+      id
+      name
+      type
+    }
+  }
+`
+
 const CREATEUSER = gql`
 mutation Singup($signUpInput: SignUpInput!) {
   singup(signUpInput: $signUpInput) {
@@ -34,4 +44,4 @@ mutation Login($logInInput: LogInInput!) {
 }
 `
 
-export {GETPRODUCTS,CREATEUSER,LOGIN}
+export {GETPRODUCTS,CREATEUSER,LOGIN,CREATEPRODUCT }
