@@ -1,0 +1,22 @@
+<div class="container">
+    <table class="table mt-20">
+        <thead>
+          <tr>
+            <th scope="col">UUID</th>
+            <th scope="col">NAME</th>
+            <th scope="col">TYPE</th>
+            <th scope="col">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let product of products">
+          <tr>
+            <th scope="row">{{ product.id }}</th>
+            <td>{{ product.name }}</td>
+            <td>{{ product.type }}</td>
+          </tr>
+        
+        </tbody>
+      </table>
+</div>
+
+
