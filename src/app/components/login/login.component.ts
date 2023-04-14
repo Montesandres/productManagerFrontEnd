@@ -20,7 +20,13 @@ export class LoginComponent implements OnInit {
   constructor(private apollo: Apollo,
               private router:Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem('token')===null||localStorage.getItem('token')===''){
+      
+    }else{
+      this.router.navigateByUrl('/products')
+    }
+  }
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
@@ -45,8 +51,9 @@ export class LoginComponent implements OnInit {
       }).subscribe((result:any)=>{
         this.saveToken(result.data.login.token);
         this.router.navigateByUrl('/products')
+
         Swal.close();
-        
+        window.location.reload()
       },err=>{
         Swal.fire({
           title:'Autenticated Error',

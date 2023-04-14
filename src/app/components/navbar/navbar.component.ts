@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
     }else{
       this.autenticated = true
     }
-    console.log(this.autenticated) 
+    // console.log(this.autenticated) 
   }
 
   logOff(){
