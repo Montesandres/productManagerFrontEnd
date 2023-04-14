@@ -4,6 +4,8 @@ import { GETPRODUCTS } from 'src/app/graphql/graphql.queries';
 import { ProductModel } from 'src/app/models/product.model';
 import {DELETEPRODUCT} from '../../graphql/graphql.queries'
 import Swal from 'sweetalert2';
+import { NgForm } from '@angular/forms';
+import {UPDATEPRODUCT} from '../../graphql/graphql.queries'
 
 @Component({
   selector: 'app-list-products',
@@ -11,9 +13,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list-products.component.css']
 })
 export class ListProductsComponent implements OnInit {
+
   products:any[] = []
-  loading = true
-  error : any
+
+  public productToEdit:ProductModel = new ProductModel
+  nameEdit:string = ""
+  typeEdit:string = ""
+  
 
   constructor(private apollo:Apollo){}
 
@@ -23,12 +29,51 @@ export class ListProductsComponent implements OnInit {
       query: GETPRODUCTS
     }).valueChanges.subscribe((result:any)=>{
         this.products = result?.data?.products;
-        this.loading = result.loading;
-        this.error = result.error;
     })
   }
 
-  showIndex(product:ProductModel){
+  loadData(product:ProductModel){
+    this.productToEdit = product
+
+    this.nameEdit = product.name;
+    this.typeEdit = product.type;
+
+    console.log(this.productToEdit.id)
+  }
+
+  saveChanges(form: NgForm){
+
+    Swal.fire({
+      allowOutsideClick:false,
+      text:'Waith a moment please'
+    });
+    Swal.showLoading();
+
+    this.apollo
+    .mutate({
+      mutation: UPDATEPRODUCT,
+      variables: {
+        updateProductInput: {
+          "id": `${this.productToEdit.id}`,
+          "name": `${this.nameEdit}`,
+          "type": `${this.typeEdit}`
+        },
+      },
+    }).subscribe((result:any)=>{
+      Swal.close();
+      console.log(result)
+      window.location.reload()
+      
+    },err=>{
+      Swal.fire({
+        title:'Autenticated Error',
+        text: err.message
+      });
+    })
+  }
+
+
+  deleteProduct(product:ProductModel){
 
     Swal.fire({
       allowOutsideClick:false,

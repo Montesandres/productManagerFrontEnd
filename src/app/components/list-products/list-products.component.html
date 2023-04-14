@@ -1,7 +1,7 @@
 <div class="container">
     <table class="table mt-20">
         <thead>
-          <tr>
+          <tr class="bg-secondary">
             <th scope="col">UUID</th>
             <th scope="col">NAME</th>
             <th scope="col">TYPE</th>
@@ -13,11 +13,51 @@
             <th scope="row">{{ product.id }}</th>
             <td>{{ product.name }}</td>
             <td>{{ product.type }}</td>
-            <td><button class="btn btn-warning">Edit</button><button class="btn btn-danger ml-2" (click)="showIndex(product)">delete</button></td>
+            <td><button data-bs-toggle="modal" data-bs-target="#modal-edit" (click)="loadData(product)"class="btn btn-warning">Edit</button><button class="btn btn-danger ml-2" (click)="deleteProduct(product)">delete</button></td>
           </tr>
         
         </tbody>
       </table>
+</div>
+<div class="modal" tabindex="-1" id="modal-edit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        
+            <form (ngSubmit)="saveChanges(f)" #f="ngForm">
+                <div class="mb-3">
+                  <label for="txtName" class="form-label ">Name Product</label>
+                  <br>
+                  <span *ngIf="f.submitted && f.form.controls['txtName'].errors" class="text-danger">The name is required</span>
+                  <input required type="text" [(ngModel)]="nameEdit" name="txtName" class="form-control" id="txtName" aria-describedby="emailHelp">
+                </div>
+                <div class="input-group mb-3">
+                  <span *ngIf="f.submitted && f.form.controls['inputType'].errors" class="text-danger">The type is required</span>
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Type product</label>
+                  </div>
+                  <select required [(ngModel)]="typeEdit" class="custom-select" name="inputType" id="inputType">
+                    <option value="Tecnology">Tecnology</option>
+                    <option value="Food">Food</option>
+                    <option value="Drink">Drink</option>
+                    <option value="Clothes">Clothes</option>
+                    <option value="Shoes">Shoes</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary ml-3" data-bs-dismiss="modal">Close</button>
+            </form>
+
+
+      </div>
+     
+    </div>
+  </div>
 </div>
 
 

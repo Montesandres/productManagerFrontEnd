@@ -53,5 +53,14 @@ const DELETEPRODUCT = gql`
     }
   }
 `;
+const UPDATEPRODUCT = gql`
+  mutation UpdateProduct($updateProductInput: UpdateProductInput!) {
+    updateProduct(updateProductInput: $updateProductInput) {
+      id
+      name
+      type
+    }
+  }
+`;
 
-export { GETPRODUCTS, CREATEUSER, LOGIN, CREATEPRODUCT,DELETEPRODUCT };
+export { GETPRODUCTS, CREATEUSER, LOGIN, CREATEPRODUCT, DELETEPRODUCT, UPDATEPRODUCT };
