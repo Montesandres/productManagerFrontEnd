@@ -43,6 +43,10 @@ export class ListProductsComponent implements OnInit {
 
   saveChanges(form: NgForm){
 
+    if (form.invalid) {
+      return;
+    }
+
     Swal.fire({
       allowOutsideClick:false,
       text:'Waith a moment please'
